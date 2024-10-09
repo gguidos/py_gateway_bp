@@ -1,0 +1,53 @@
+.
+├── Dockerfile
+├── README.md
+├── docker-compose.yml
+├── logs
+├── project_structure.txt
+├── requirements.txt
+├── src
+│   ├── core
+│   │   ├── entities
+│   │   │   ├── base_entity.py
+│   │   │   └── microservice.py
+│   │   ├── repositories
+│   │   │   └── db_repository.py
+│   │   ├── schemas
+│   │   │   └── microservice_schema.py
+│   │   ├── services
+│   │   └── use_cases
+│   │       ├── create_ms.py
+│   │       ├── get_all_ms.py
+│   │       └── get_ms.py
+│   ├── dependencies
+│   │   ├── microservice_service_dependency.py
+│   │   └── request_id_dependency.py
+│   ├── infrastructure
+│   │   ├── db
+│   │   │   ├── mongo_client.py
+│   │   │   └── redis_client.py
+│   │   ├── di_container.py
+│   │   ├── exception_handlers.py
+│   │   └── logging_config.py
+│   ├── interfaces
+│   │   └── api
+│   │       └── v1
+│   │           ├── gateway_controller.py
+│   │           ├── health_check.py
+│   │           └── microservice_controller.py
+│   ├── main.py
+│   ├── middleware
+│   │   ├── logging_middleware.py
+│   │   ├── request_id_middleware.py
+│   │   ├── response_interceptor.py
+│   │   └── security_headers.py
+│   ├── services
+│   │   ├── gateway_service.py
+│   │   ├── get_ms_services.py
+│   │   └── ms_service.py
+│   └── utils
+│       └── dynamic_router.py
+└── tests
+    └── post.http
+
+19 directories, 32 files

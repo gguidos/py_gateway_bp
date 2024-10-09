@@ -1,0 +1,19 @@
+POST http://127.0.0.1:8500/api/v1/microservice/
+Content-Type: application/json
+
+{
+  "service_name": "user-services1",
+  "base_url": "http://localhost:8000",
+  "paths": [
+    {
+      "path": "/test/",
+      "method": "GET",
+      "protected": true,
+      "rate_limit": {
+        "requests_per_minute": 10,
+        "requests_per_hour": 100
+      }
+    }
+  ],
+  "api_key": "some-api-key"
+}

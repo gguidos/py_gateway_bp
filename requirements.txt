@@ -1,0 +1,12 @@
+bleach
+dependency-injector
+fastapi
+fastapi-limiter
+httpx
+loguru
+motor
+pydantic
+python-dotenv
+redis
+uvicorn
+
