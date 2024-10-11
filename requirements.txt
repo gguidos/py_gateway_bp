@@ -5,6 +5,8 @@ fastapi-limiter
 httpx
 loguru
 motor
+pika
+prometheus-client
 pydantic
 python-dotenv
 redis

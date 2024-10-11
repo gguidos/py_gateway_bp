@@ -1,10 +1,12 @@
-
 from dependency_injector import containers, providers
 from src.infrastructure.db.mongo_client import MongoDBClient
 from src.core.repositories.db_repository import DBRepository
-from src.infrastructure.db.redis_client import RedisClient  # Import the new Redis client class
+from src.infrastructure.pika import PikaClient
+from src.infrastructure.db.redis_client import RedisClient
+from src.core.repositories.rabbitmq_repository import RabbitMQRepository
 from src.services.gateway_service import GatewayService
 from src.services.ms_service import MicroserviceService
+from src.core.use_cases.rabbitmq.consume_user_auth_queue import ConsumeUserAuthQueue
 
 class Container(containers.DeclarativeContainer):
     """Dependency Injection Container for the Gateway Service."""
@@ -28,9 +30,20 @@ class Container(containers.DeclarativeContainer):
         password=config.redis_password
     )
 
+    # RabbitMQ Client (Singleton)
+    rabbitmq_client = providers.Singleton(
+        PikaClient,
+        rabbitmq_host=config.rabbitmq_host
+    )
+
     db_repository = providers.Factory(
         DBRepository,
         client=mongo_client
+    )
+
+    rabbitmq_repository = providers.Factory(
+        RabbitMQRepository,
+        pika_client=rabbitmq_client
     )
 
     # Gateway Service (Singleton)
@@ -44,4 +57,10 @@ class Container(containers.DeclarativeContainer):
     microservice_service = providers.Factory(
         MicroserviceService,
         db_repository=db_repository
+    )
+
+    # Consume User Auth Queue use case
+    consume_user_auth_queue = providers.Factory(
+        ConsumeUserAuthQueue,
+        repository=rabbitmq_repository
     )
